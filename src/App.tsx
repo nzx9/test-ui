@@ -1,9 +1,9 @@
 import "./App.css";
 import Layout from "./components/Layout";
 import Profile from "./components/Profile";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-const router = createBrowserRouter([
+const router = [
   {
     path: "/",
     element: <div>Hello world!</div>,
@@ -20,12 +20,24 @@ const router = createBrowserRouter([
     path: "/topic2",
     element: <div>Topic 2</div>,
   },
-]);
+];
 
 function App() {
   return (
     <div className="App">
-      <Layout children={<RouterProvider router={router} />} />
+      <Layout
+        children={
+          <Routes>
+            {router.map((route) => (
+              <Route
+                key={Math.random()}
+                path={route.path}
+                element={route.element}
+              />
+            ))}
+          </Routes>
+        }
+      />
     </div>
   );
 }

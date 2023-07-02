@@ -1,14 +1,10 @@
 import {
   Grid,
   Button,
-  Box,
-  Modal,
-  Typography,
   DialogTitle,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   TextField,
   FormControl,
   InputLabel,
@@ -18,18 +14,18 @@ import {
 import React from "react";
 const Profile = () => {
   const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState("");
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const handleChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSelected(e.target.value);
+  };
 
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4,
+  const submitForm = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    alert("Form Submitted");
   };
 
   return (
@@ -49,50 +45,52 @@ const Profile = () => {
       </Grid>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Some Text</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Some Text"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Some Text"
-            type="text"
-            fullWidth
-          />
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Some Text"
-            type="text"
-            fullWidth
-          />
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Some Text</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              // value={}
-              label="Select"
-              // onChange={handleChange}
-            >
-              <MenuItem value={10}>Select 1</MenuItem>
-              <MenuItem value={20}>Select 2</MenuItem>
-              <MenuItem value={30}>Select 3</MenuItem>
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Button</Button>
-          <Button onClick={handleClose}>Button</Button>
-        </DialogActions>
+        <form onSubmit={submitForm}>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name1"
+              label="Some Text"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name2"
+              label="Some Text"
+              type="text"
+              fullWidth
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name3"
+              label="Some Text"
+              type="text"
+              fullWidth
+            />
+            <FormControl fullWidth>
+              <InputLabel id="select-label">Some Text</InputLabel>
+              <Select
+                labelId="select-label"
+                id="select"
+                value={selected}
+                label="Select"
+                onChange={handleChange}
+              >
+                <MenuItem value={"s1"}>Select 1</MenuItem>
+                <MenuItem value={"s2"}>Select 2</MenuItem>
+                <MenuItem value={"s3"}>Select 3</MenuItem>
+              </Select>
+            </FormControl>
+          </DialogContent>
+          <DialogActions>
+            <Button type="submit">SUBMIT</Button>
+            <Button onClick={handleClose}>CLOSE</Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </>
   );
